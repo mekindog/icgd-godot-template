@@ -64,8 +64,8 @@ func _physics_process(_delta: float) -> void:
 	velocity = launch_direction * speed
 	move_and_slide()
 
-	# Did we bump into anything this frame?
-	if get_slide_collision_count() > 0:
+	# Did we hit a wall this frame?
+	if is_on_wall():
 		# YOUR BIT: what happens when a comet hits a wall?
 		#   launch_direction = Vector2.ZERO          # stop dead
 		#   launch_direction = -launch_direction     # bounce straight back

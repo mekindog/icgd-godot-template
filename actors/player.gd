@@ -9,6 +9,13 @@
 extends CharacterBody2D
 
 
+# The Player's Motion Mode is set to "Floating" rather than the default
+# "Grounded". Grounded is for platformers: it uses gravity's direction to
+# decide whether a surface is a floor, a ceiling or a wall. In a top-down
+# game there is no floor, so Floating is correct, and it means is_on_wall()
+# is true for all four walls instead of only the left and right ones.
+
+
 # --- THINGS YOU CAN TUNE IN THE INSPECTOR ---------------------------------
 
 ## How fast the player moves, in pixels per second.

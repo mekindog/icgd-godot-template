@@ -44,6 +44,16 @@ extends Node2D
 @export var safe_spawn_distance := 250.0
 
 
+# --- JUICE ----------------------------------------------------------------
+
+## How hard the screen jolts when you get hit, in pixels.
+## Set it to 0 for no shake. Above about 30 it becomes hard to play.
+@export var shake_strength := 9.0
+
+## How long the jolt lasts, in seconds.
+@export var shake_seconds := 0.25
+
+
 # --- THINGS YOU PROBABLY DON'T NEED TO TOUCH ------------------------------
 
 @export var enemy_scene: PackedScene
@@ -55,7 +65,9 @@ extends Node2D
 var score := 0
 var time_left := 0.0
 var round_over := false
+var shake_time_left := 0.0
 
+@onready var camera: Camera2D = $Camera2D
 @onready var player: CharacterBody2D = $Player
 @onready var enemies: Node2D = $Enemies
 @onready var pickups: Node2D = $Pickups
@@ -87,6 +99,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	# Keep shaking even after the round ends, so the final hit still lands.
+	update_shake(delta)
+
 	if round_over:
 		return
 
@@ -174,10 +189,37 @@ func _on_pickup_collected(points: int) -> void:
 func _on_player_hurt(lives_left: int) -> void:
 	hud.set_lives(lives_left)
 	$Sounds/HurtSound.play()
+	shake_screen()
 
 
 func _on_player_died() -> void:
+	shake_screen()
 	end_round(false, "YOU DIED")
+
+
+# --- SCREEN SHAKE ---------------------------------------------------------
+
+## Jolts the camera. Call this from anywhere for a bit of impact, e.g.
+##     get_parent().shake_screen()
+func shake_screen() -> void:
+	shake_time_left = shake_seconds
+
+
+# Nudges the camera to a random spot each frame, less and less as the
+# shake wears off, then puts it back exactly where it started.
+func update_shake(delta: float) -> void:
+	if shake_time_left <= 0.0:
+		camera.offset = Vector2.ZERO
+		return
+
+	shake_time_left -= delta
+
+	# how_strong goes from 1.0 at the start down to 0.0 at the end
+	var how_strong := shake_strength * (shake_time_left / shake_seconds)
+	camera.offset = Vector2(
+		randf_range(-how_strong, how_strong),
+		randf_range(-how_strong, how_strong)
+	)
 
 
 func end_round(did_win: bool, message: String) -> void:

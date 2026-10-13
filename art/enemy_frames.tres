@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" load_steps=10 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://c6yj0cvia8lic"]
 
-[ext_resource type="Texture2D" path="res://art/enemy_run.png" id="1_slime"]
+[ext_resource type="Texture2D" uid="uid://d1xx8p7tjmeh4" path="res://art/enemy_run.png" id="1_slime"]
 
 [sub_resource type="AtlasTexture" id="run_0"]
 atlas = ExtResource("1_slime")
@@ -61,7 +61,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("run_7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 10.0
 }]

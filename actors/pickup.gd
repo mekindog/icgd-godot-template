@@ -30,16 +30,19 @@ signal collected(points_scored: int)
 
 var time_alive := 0.0
 var starting_y := 0.0
+var shadow_y := 0.0
 var already_collected := false
 var player: Node2D = null
 
 @onready var sprite: Polygon2D = $Shape
 @onready var burst: CPUParticles2D = $Burst
+@onready var shadow: Sprite2D = $Shadow
 
 
 func _ready() -> void:
 	starting_y = position.y
 	player = get_tree().get_first_node_in_group("player")
+	shadow_y = shadow.position.y
 
 
 func _process(delta: float) -> void:
@@ -50,6 +53,11 @@ func _process(delta: float) -> void:
 	# sin() goes smoothly up and down between -1 and 1 forever.
 	time_alive += delta
 	position.y = starting_y + sin(time_alive * bob_speed) * bob_height
+
+	# The shadow is a child of the coin, so it would normally bob along with
+	# it. Pushing it back down by the same amount pins it to the ground,
+	# which is what makes the coin look like it's floating.
+	shadow.position.y = shadow_y - (position.y - starting_y)
 
 	if player != null and overlaps_body(player):
 		collect()

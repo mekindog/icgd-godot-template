@@ -13,7 +13,7 @@ extends Area2D
 
 ## How fast the slime chases you, in pixels per second.
 ## The player's speed is 300, so anything above that is unfair (but funny).
-@export var speed := 110.0
+@export var speed := randf_range(100, 150)
 
 ## Tick this off and the slime will run AWAY from you instead.
 @export var run_away_instead := false

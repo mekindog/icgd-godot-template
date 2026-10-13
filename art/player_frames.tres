@@ -1,7 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=18 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://d355lfmw2tpqg"]
 
-[ext_resource type="Texture2D" path="res://art/player_idle.png" id="1_idle"]
-[ext_resource type="Texture2D" path="res://art/player_run.png" id="2_run"]
+[ext_resource type="Texture2D" uid="uid://dnswvj7uwk5ge" path="res://art/player_idle.png" id="1_idle"]
+[ext_resource type="Texture2D" uid="uid://b8qhqix6ihmpo" path="res://art/player_run.png" id="2_run"]
 
 [sub_resource type="AtlasTexture" id="idle_0"]
 atlas = ExtResource("1_idle")
@@ -87,7 +87,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("idle_6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 10.0
 }, {
@@ -116,7 +116,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("run_7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 12.0
 }]

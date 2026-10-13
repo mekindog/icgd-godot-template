@@ -1,0 +1,31 @@
+ASSET CREDITS
+=============
+
+Want more sprites in the same style? These are the packs the placeholder
+art came from. Both have much more in them than we've used here.
+
+Player (mushroom)
+  "Forest Monsters" free pack by CraftPix
+  https://free-game-assets.itch.io/
+
+Enemy (slime)
+  "Free Slime Mobs Pixel Art Top Down Sprite Pack" by CraftPix
+  https://free-game-assets.itch.io/free-slime-mobs-pixel-art-top-down-sprite-pack
+  Licence: https://craftpix.net/file-licenses/
+
+Sound effects
+  "400 Sounds Pack" by ci
+  https://ci.itch.io/400-sounds-pack
+  Sounds used: Retro/coin, Retro/hurt, Retro/power_up, Retro/lose, UI/select_1
+
+Heart icon
+  Drawn for this project. Do what you like with it.
+
+
+A NOTE ON LICENCES
+------------------
+The CraftPix licence allows you to USE these assets in your game, but it
+does NOT allow you to redistribute the asset files themselves. That's fine
+for anything you build tonight. If you ever put your game somewhere public,
+either check the licence yourself or swap the art for something CC0 (for
+example kenney.nl, which is public domain and asks for nothing).

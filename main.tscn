@@ -21,9 +21,14 @@ script = ExtResource("1_script")
 enemy_scene = ExtResource("3_enemy")
 pickup_scene = ExtResource("4_pickup")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
 [node name="Background" type="ColorRect" parent="." unique_id=1578615276]
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 1212.0
+offset_bottom = 708.0
 color = Color(0.13, 0.15, 0.2, 1)
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=871556357]

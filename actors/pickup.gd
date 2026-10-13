@@ -14,11 +14,12 @@ extends Area2D
 ## Make it negative for a trap that costs you points.
 @export var points := 1
 
-## How fast the coin bobs up and down. Set to 0 to make it sit still.
-@export var bob_speed := 3.0
+## How fast the coin pulses between bright and dark. Set to 0 to stop it.
+@export var pulse_speed := 3.0
 
-## How far the coin bobs up and down, in pixels.
-@export var bob_height := 6.0
+## How dark the coin goes at its dimmest.
+## 1.0 is no change at all, 0.3 is a strong flicker.
+@export var pulse_darkness := 0.55
 
 
 # --- SIGNALS --------------------------------------------------------------
@@ -29,35 +30,29 @@ signal collected(points_scored: int)
 # --- THINGS THE SCRIPT KEEPS TRACK OF -------------------------------------
 
 var time_alive := 0.0
-var starting_y := 0.0
-var shadow_y := 0.0
 var already_collected := false
 var player: Node2D = null
 
 @onready var sprite: Polygon2D = $Shape
 @onready var burst: CPUParticles2D = $Burst
-@onready var shadow: Sprite2D = $Shadow
 
 
 func _ready() -> void:
-	starting_y = position.y
 	player = get_tree().get_first_node_in_group("player")
-	shadow_y = shadow.position.y
 
 
 func _process(delta: float) -> void:
 	if already_collected:
 		return
 
-	# Make the coin bob gently so it draws the eye.
-	# sin() goes smoothly up and down between -1 and 1 forever.
 	time_alive += delta
-	position.y = starting_y + sin(time_alive * bob_speed) * bob_height
 
-	# The shadow is a child of the coin, so it would normally bob along with
-	# it. Pushing it back down by the same amount pins it to the ground,
-	# which is what makes the coin look like it's floating.
-	shadow.position.y = shadow_y - (position.y - starting_y)
+	# sin() swings smoothly between -1 and 1 forever. The maths below turns
+	# that into a brightness between pulse_darkness and 1.0, which we then
+	# multiply the coin's colour by. Lower number = darker coin.
+	var wave := (sin(time_alive * pulse_speed) + 1.0) / 2.0
+	var brightness := lerpf(pulse_darkness, 1.0, wave)
+	sprite.modulate = Color(brightness, brightness, brightness)
 
 	if player != null and overlaps_body(player):
 		collect()

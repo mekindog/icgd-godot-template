@@ -116,9 +116,12 @@ func _process(delta: float) -> void:
 
 
 # --- SPAWNING -------------------------------------------------------------
-# These two functions are deliberately short and public, so that a twist
-# card can call them from anywhere with a single line, for example:
-#     get_parent().spawn_enemy_at(global_position)
+# These functions are deliberately short and public, so that a twist card
+# can call them from anywhere with a single line. This node is in the
+# "game" group, so any script in the project can reach it like this:
+#
+#     var game := get_tree().get_first_node_in_group("game")
+#     game.spawn_enemy_at(global_position)
 
 ## Puts a new slime at an exact spot.
 func spawn_enemy_at(where: Vector2) -> void:
@@ -174,16 +177,24 @@ func _on_spawn_timer_timeout() -> void:
 
 # --- SCORE, LIVES AND ENDING ----------------------------------------------
 
-func _on_pickup_collected(points: int) -> void:
+## Adds points to the score and ends the round if that's enough to win.
+## Points can be negative. Call this from anywhere, for example:
+##     get_tree().get_first_node_in_group("game").add_score(5)
+func add_score(points: int) -> void:
 	score += points
 	hud.set_score(score, score_to_win)
+
+	if score_to_win > 0 and score >= score_to_win:
+		end_round(true, "YOU WIN")
+
+
+func _on_pickup_collected(points: int) -> void:
 	$Sounds/PickupSound.play()
 
 	# Replace the coin that was just taken, so the count stays the same.
 	spawn_pickup()
 
-	if score_to_win > 0 and score >= score_to_win:
-		end_round(true, "YOU WIN")
+	add_score(points)
 
 
 func _on_player_hurt(lives_left: int) -> void:

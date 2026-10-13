@@ -16,7 +16,7 @@ size = Vector2(100, 1048)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_topbottom"]
 size = Vector2(1552, 100)
 
-[node name="Main" type="Node2D" unique_id=903359504]
+[node name="Main" type="Node2D" unique_id=903359504 groups=["game"]]
 script = ExtResource("1_script")
 enemy_scene = ExtResource("3_enemy")
 pickup_scene = ExtResource("4_pickup")

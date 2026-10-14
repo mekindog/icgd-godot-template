@@ -1,29 +1,35 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://c6kd3a4ecslhv"]
 
-[ext_resource type="Script" path="res://actors/player.gd" id="1_script"]
-[ext_resource type="SpriteFrames" path="res://art/player_frames.tres" id="2_frames"]
-[ext_resource type="Texture2D" path="res://art/shadow.png" id="3_shadow"]
+[ext_resource type="Script" uid="uid://ckpp1i51c7xtj" path="res://actors/player.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://r57yt8edp31x" path="res://player.png" id="2_1yqc4"]
+[ext_resource type="SpriteFrames" uid="uid://d355lfmw2tpqg" path="res://art/player_frames.tres" id="2_frames"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
-radius = 32.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4c57u"]
+radius = 3.0
+height = 22.0
 
-[node name="Player" type="CharacterBody2D"]
-motion_mode = 1
-collision_layer = 1
+[node name="Player" type="CharacterBody2D" unique_id=704405827]
 collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_script")
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=27630983]
 modulate = Color(0, 0, 0, 0.3)
-position = Vector2(0, 48)
-texture = ExtResource("3_shadow")
+position = Vector2(0, -4)
+texture = ExtResource("2_1yqc4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1353616167]
+visible = false
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -15)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_body")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1708490576]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_4c57u")
+
+[node name="Player" type="Sprite2D" parent="." unique_id=1987425430]
+position = Vector2(0, -4)
+texture = ExtResource("2_1yqc4")

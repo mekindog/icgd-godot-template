@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://caiuwrenegxmy"]
 
 [ext_resource type="Script" uid="uid://dkc1qvog1soyf" path="res://main.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://actors/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c6kd3a4ecslhv" path="res://actors/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://actors/enemy.tscn" id="3_enemy"]
 [ext_resource type="PackedScene" path="res://actors/pickup.tscn" id="4_pickup"]
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="5_hud"]
@@ -9,22 +9,29 @@
 [ext_resource type="AudioStream" uid="uid://d2eoyuyckto1v" path="res://audio/hurt.wav" id="7_hurt_snd"]
 [ext_resource type="AudioStream" uid="uid://c4xbcqdnwdelq" path="res://audio/win.wav" id="8_win_snd"]
 [ext_resource type="AudioStream" uid="uid://bltqwrdvgwgyr" path="res://audio/lose.wav" id="9_lose_snd"]
+[ext_resource type="Texture2D" uid="uid://cktw5a04tbqql" path="res://BG.png" id="10_4c57u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_side"]
 size = Vector2(100, 1048)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_topbottom"]
-size = Vector2(1552, 100)
+size = Vector2(2100, 100)
 
 [node name="Main" type="Node2D" unique_id=903359504 groups=["game"]]
+texture_filter = 1
 script = ExtResource("1_script")
 enemy_scene = ExtResource("3_enemy")
 pickup_scene = ExtResource("4_pickup")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Bg" type="Sprite2D" parent="." unique_id=1201439703]
+position = Vector2(578, 321)
+texture = ExtResource("10_4c57u")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=501575719]
 position = Vector2(576, 324)
 
 [node name="Background" type="ColorRect" parent="." unique_id=1578615276]
+visible = false
 offset_left = -60.0
 offset_top = -60.0
 offset_right = 1212.0
@@ -36,19 +43,19 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Left" type="CollisionShape2D" parent="Walls" unique_id=2135588629]
-position = Vector2(-50, 324)
+position = Vector2(-441, 445)
 shape = SubResource("RectangleShape2D_side")
 
 [node name="Right" type="CollisionShape2D" parent="Walls" unique_id=525535575]
-position = Vector2(1202, 324)
+position = Vector2(1593, 397)
 shape = SubResource("RectangleShape2D_side")
 
 [node name="Top" type="CollisionShape2D" parent="Walls" unique_id=1277188245]
-position = Vector2(576, -50)
+position = Vector2(583, 109)
 shape = SubResource("RectangleShape2D_topbottom")
 
 [node name="Bottom" type="CollisionShape2D" parent="Walls" unique_id=95632504]
-position = Vector2(576, 698)
+position = Vector2(586, 905)
 shape = SubResource("RectangleShape2D_topbottom")
 
 [node name="Pickups" type="Node2D" parent="." unique_id=65019744]

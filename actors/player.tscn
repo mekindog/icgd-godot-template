@@ -12,6 +12,8 @@ height = 22.0
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_script")
+speed = 100.0
+lives = 1
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=27630983]
 modulate = Color(0, 0, 0, 0.3)

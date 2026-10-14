@@ -17,11 +17,15 @@ size = Vector2(100, 1048)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_topbottom"]
 size = Vector2(2100, 100)
 
-[node name="Main" type="Node2D" unique_id=903359504 groups=["game"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scrap_area"]
+size = Vector2(1800, 560)
+
+[node name="Main" type="Node2D" unique_id=903359504 node_paths=PackedStringArray("scrap_spawn_area") groups=["game"]]
 texture_filter = 1
 script = ExtResource("1_script")
 enemy_scene = ExtResource("3_enemy")
 pickup_scene = ExtResource("4_pickup")
+scrap_spawn_area = NodePath("ScrapSpawnArea")
 
 [node name="Bg" type="Sprite2D" parent="." unique_id=1201439703]
 position = Vector2(578, 321)
@@ -57,6 +61,16 @@ shape = SubResource("RectangleShape2D_topbottom")
 [node name="Bottom" type="CollisionShape2D" parent="Walls" unique_id=95632504]
 position = Vector2(586, 905)
 shape = SubResource("RectangleShape2D_topbottom")
+
+[node name="ScrapSpawnArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScrapSpawnArea"]
+position = Vector2(576, 507)
+shape = SubResource("RectangleShape2D_scrap_area")
 
 [node name="Pickups" type="Node2D" parent="." unique_id=65019744]
 

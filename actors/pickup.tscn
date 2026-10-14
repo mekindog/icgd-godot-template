@@ -1,24 +1,22 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://actors/pickup.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://art/shadow.png" id="2_shadow"]
+[ext_resource type="Texture2D" path="res://scrap_1.png" id="3_scrap1"]
+[ext_resource type="Texture2D" path="res://scrap_2.png" id="4_scrap2"]
+[ext_resource type="Texture2D" path="res://scrap_3.png" id="5_scrap3"]
+[ext_resource type="Texture2D" path="res://scrap_4.png" id="6_scrap4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
-radius = 20.0
+radius = 28.0
 
 [node name="Pickup" type="Area2D" groups=["pickup"]]
 collision_layer = 0
 collision_mask = 1
 script = ExtResource("1_script")
+looks = Array[Texture2D]([ExtResource("3_scrap1"), ExtResource("4_scrap2"), ExtResource("5_scrap3"), ExtResource("6_scrap4")])
 
-[node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.3)
-position = Vector2(0, 26)
-texture = ExtResource("2_shadow")
-
-[node name="Shape" type="Polygon2D" parent="."]
-color = Color(1, 0.84, 0.25, 1)
-polygon = PackedVector2Array(0, -18, 14, 0, 0, 18, -14, 0)
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_scrap1")
 
 [node name="Burst" type="CPUParticles2D" parent="."]
 emitting = false

@@ -56,6 +56,12 @@ extends Node2D
 
 # --- THINGS YOU PROBABLY DON'T NEED TO TOUCH ------------------------------
 
+## The area scrap is allowed to spawn in. Resize the CollisionShape2D
+## children of this Area2D in the editor to change where scrap appears.
+## Several rectangles can be added for odd-shaped play areas.
+## Leave empty to spawn anywhere on screen.
+@export var scrap_spawn_area: Area2D
+
 @export var enemy_scene: PackedScene
 @export var pickup_scene: PackedScene
 
@@ -143,9 +149,40 @@ func spawn_enemy() -> void:
 	spawn_enemy_at(random_spot_away_from_player())
 
 
-## Puts a new coin somewhere random, but not right on top of the player.
+## Puts a new coin somewhere random inside the scrap spawn area,
+## but not right on top of the player.
 func spawn_pickup() -> void:
-	spawn_pickup_at(random_spot_away_from_player())
+	if scrap_spawn_area != null:
+		spawn_pickup_at(random_spot_in_area(scrap_spawn_area))
+	else:
+		spawn_pickup_at(random_spot_away_from_player())
+
+
+# Picks a random point inside one of the area's collision shapes, keeping
+# away from the player in the same way as random_spot_away_from_player().
+func random_spot_in_area(area: Area2D) -> Vector2:
+	var shapes: Array[CollisionShape2D] = []
+	for child in area.get_children():
+		if child is CollisionShape2D and child.shape != null and not child.disabled:
+			shapes.append(child)
+
+	if shapes.is_empty():
+		push_warning("Scrap spawn area has no collision shapes, using the whole screen.")
+		return random_spot_away_from_player()
+
+	var spot := Vector2.ZERO
+	for attempt in 30:
+		var shape: CollisionShape2D = shapes.pick_random()
+		var rect := shape.shape.get_rect()
+		var local := Vector2(
+			randf_range(rect.position.x, rect.end.x),
+			randf_range(rect.position.y, rect.end.y)
+		)
+		spot = shape.global_transform * local
+		if spot.distance_to(player.position) > safe_spawn_distance:
+			break
+
+	return spot
 
 
 # Keeps picking random points until it finds one far enough from the player.
